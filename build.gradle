@@ -1,0 +1,38 @@
+buildscript {
+    //ext : build.gralde에서 사용하는 전역변수
+    ext {
+        springBootVersion = '2.1.9.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+// 아래는 자바와 스프링부트를 사용하기 위한 필수 플러그인. 항상 추가하도록하자.
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management' // 스프링부트의 의존성들을 관리해주는 플러그인. 꼭 추가해야함.
+
+group 'com.ejkim.book'
+version '1.0-SNAPSHOT'
+
+// repositories : 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지를 정한다.
+// 기본적으로 mavenCentral()을 많이 사용하지만, 최근에는 라이브러리 업로드 난이도 때문에 jcenter도 많이 사용한다.
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+test {
+    useJUnitPlatform()
+}
